@@ -43,7 +43,7 @@ namespace Infrastructure.Services
                 Budget = movie.Budget,
                 Revenue = movie.Revenue,
                 ReleaseDate = movie.ReleaseDate,
-                // todo add all the properties along with rating
+                // todo add all the properties
             };
             movieDetails.Trailers = new List<TrailerModel>();
             foreach (var trailer in movie.Trailers)
@@ -53,7 +53,6 @@ namespace Infrastructure.Services
 
             // todo loop through genres and add genres model
             // todo loop through cast and add to casts model
-
             return movieDetails;
 
         }
