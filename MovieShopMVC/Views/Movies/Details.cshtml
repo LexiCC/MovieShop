@@ -1,0 +1,124 @@
+﻿@using ApplicationCore.Models
+@using ApplicationCore.Entities
+@model ApplicationCore.Models.MovieDetailsModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Movie Details</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    <style>
+    .banner{
+     width: 103%; 
+     height: 300px; 
+     border: 1px; 
+     background-image: url('@Model.BackdropUrl');   
+     position: relative;
+     text-align: center;
+     color: white;
+    }
+    
+    .centered {
+    position: absolute;
+    top: 50%;
+    left: 55%;
+    text-align: left;
+    transform: translate(-50%, -50%);
+    }
+    
+    .top-right {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    }
+    
+    .movie-poster{
+     position: absolute;
+     top: 1px;
+     left: 110px;
+     }
+    </style>
+</head>
+
+<body>
+
+<!--Two rows-->
+<div class="container">
+    <!-- Banner-->
+    <div class="row" style="width: 103%; 
+                            height: 300px; 
+                            border: 1px; 
+                            background-image: url('@Model.BackdropUrl');
+                            color: white;">
+        <!--Movie poster-->
+        <div class="col-sm-3">
+            <img src="@Model.PosterUrl" class="img-fluid" alt="movie-poster" style="height:300px; width:250px ">
+        </div> 
+                   
+        <!--Movie content-->
+        <div class="col-sm-6">
+            <h3 style="font-size: 2vw">@Model.Title</h3>
+            <p style=" font-size:1vw; margin-bottom:0">@Model.Tagline</p>
+            <p style=" font-size:1vw; font-weight:bold">@Model.RunTime m | @(Model.ReleaseDate.HasValue?Model.ReleaseDate.Value.Year:"")</p>
+            <!--Movie genres-->
+
+            
+            <span class="badge bg-success">@Model.Rating</span> <!--todo-->
+            <p style="font-size: 1vw">@Model.Overview</p>
+        </div>
+        
+        <!--Movie review-->
+        <div class="col-sm-2">
+            <p style="font-size: 1vw">review</p> <!--todo-->
+            <p style="font-size: 1vw">buy</p> <!--todo-->
+        </div>
+    </div>
+    <hr/>
+
+    <!--Movie Details-->
+    <div class="row">
+        <!--Movie Fact-->
+        <div class="col-4">
+            <div class = "h3 text-dark">Movie Facts</div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Release Date 
+                    <span class="badge rounded-pill bg-secondary"> @Model.ReleaseDate</span>
+                </li>
+                <li class="list-group-item">Run Time 
+                    <span class="badge rounded-pill bg-secondary"> @Model.RunTime m</span>
+                </li> 
+                <li class="list-group-item">Box Office 
+                    <span class="badge rounded-pill bg-secondary"> $@Model.Revenue</span>
+                </li>
+                <li class="list-group-item">Budget 
+                    <span class="badge rounded-pill bg-secondary"> $@Model.Budget</span>
+                </li>
+            </ul>
+            <br/>
+            
+            <h4>Trailer</h4>
+            @foreach (var trailer in @Model.Trailers) {
+                <div>
+                    <a class="text-dark" href="@trailer.TrailerUrl">
+                        <i class="bi bi-youtube"></i> @trailer.Name
+                    </a>
+                </div>
+            }
+        </div>
+        
+        <!--Cast Info-->
+        <div class="col-8">
+            <!-- Cast-->
+            <div class="h3 text-dark">Cast</div>
+            <br/>
+            @foreach (var cast in Model.Casts)
+            {
+                <partial name="castDetails" model="cast"/>
+            }
+            </div>
+        </div>
+</div>
+</body>

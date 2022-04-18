@@ -1,0 +1,70 @@
+ADO.NET -> takes lots of time to write 
+and Dapper (micro ORM) (StackOverflow) to connet to DB
+Select * from Movies where name like '%Ave%' => 20 records
+Id, Title, Budget
+Mappper (miceo ORM Object Relational Mapping)
+MovieCard -> Id, Tile, Budget
+db.ExecuteQuery<List<MovieCard>>("Select * from Movies where name like '%Ave%' => 20 records")
+
+Already have database ready -> Northwind, AdventureWorkdsa
+
+Full ORM
+Entity Framework (MS)
+				 -> Create Database without writing single line of SQL Code
+				 -> C# code , Migrations -> 
+
+				 -> Connect to db and get data without writing single line of SQL Code
+				 -> Select * from Movies where name like '%Ave%' => 20 records
+				 -> LINQ -> 
+
+ADO.NET -> 1
+Dapper  -> 2
+EF 6	-> very very fast
+
+
+EF Core -> Code First Approach to crtete the DB
+		-> Create entities and we apply some rules 
+		-> Migrations in EF ->
+		
+		DbContext -> Represstns the database
+		DbSet	-> Represents the table 
+
+1. Nuget and download the packages
+2. Keep Connection sting for EF -> Server name, database name
+3. Create a class that represent the table
+4. Create a new DbContext class
+5. establish ConnectionString with DbContext by injecting from appsettings.json
+6. Create new DbSet property for the entity
+7. Migrations in side Tools-> Nuget Package Manger Console, always run migrations against project that has DbContext location
+8. Always make sure ur migration files have meaningful names
+9. Data Annotations (Attributes []) or Fluent API
+
+If you are using non-windows machine, like mac or linux or if you are not using Visual Studio Rider
+
+WE RESUSE the View in multiple places => Partial View
+
+un/pw -> 
+Proper access to certain 
+
+public pages -> Home, Movie Details, Cast Details, Login, register
+Authenticated -> Movies Purchased, Favorites, BUY, Favorite
+Authrorization as Admin - Role -> Create Movie, Create Cast 
+
+Register -> GET http:movieshop.com/account/register registwr view empty
+	submit -> POST un/pw, fname, lastname, dof
+Login -> GET http:movieshop.com/account/login
+		POST -> recieve the data from View
+
+Model Binding in ASP.NET
+
+Encryption -> We can decrypt back to original string
+
+Register -> HASH -> ONE WAY with SALT *** no two hashes are same
+U1 -> abc@abc.com  (Abc123!! + kghfkdslhgfdskhn) -> Hashing Alg1 -> gdgdfgdfgfdhfghgfhgfhgf
+U2 -> xyz@abc.com  (Abc123!! + alkdfhalkdjnklas) -> Hashing Alg1 -> vxfvgfdsgdgfdgfdgfdgfd
+
+Login ->
+U1 -> abc@abc.com  (Abc123!! + kghfkdslhgfdskhn) -> Hashing Alg1 ->
+ Compare database hash with ghe one generated heres
+and if they are equal , correct password 
+
