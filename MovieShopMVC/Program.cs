@@ -6,7 +6,7 @@ using Infrastructure.Repositories;
 using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
-
+using MovieShopMVC.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +21,9 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ICastRepository, CastRepository>();
 builder.Services.AddScoped<ICastService, CastService>();
 builder.Services.AddScoped<IGenreService, GenreService>();
+builder.Services.AddScoped<ICurrentUser, CurrentUser>();
+
+builder.Services.AddHttpContextAccessor();
 
 // scopes in DI
 // AddScoped -> Http Request, its gonna create the insatcne, resuse the insatcne witin the http request, when a new Http request, new insatce

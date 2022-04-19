@@ -25,6 +25,7 @@ namespace Infrastructure.Services
         {
             //Get Entities' data from repository
             var movies = await _movieRepository.Get30HighestGrossingMovies();
+            
             // AutoMapper - Nuget
             //Transfer Entities' data into Model's data
             var movieCards = new List<MovieCard>();
@@ -39,6 +40,11 @@ namespace Infrastructure.Services
         {
             //先用相应的method从repository里拿到想要的entity data
             var movie = await _movieRepository.GetById(id);
+            if (movie == null) 
+            {
+                return null;
+            }
+            
             //然后放入到对应的Model里
             var movieDetails = new MovieDetailsModel
             {

@@ -51,8 +51,9 @@
     <div class="row" style="width: 103%; 
                             height: 300px; 
                             border: 1px; 
-                            background-image: url('@Model.BackdropUrl');
-                            color: white;">
+                            background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('@Model.BackdropUrl');
+                            color: white;"
+         ocu>
         <!--Movie poster-->
         <div class="col-sm-3">
             <img src="@Model.PosterUrl" class="img-fluid" alt="movie-poster" style="height:300px; width:250px ">
@@ -64,8 +65,12 @@
             <p style=" font-size:1vw; margin-bottom:0">@Model.Tagline</p>
             <p style=" font-size:1vw; font-weight:bold">@Model.RunTime m | @(Model.ReleaseDate.HasValue?Model.ReleaseDate.Value.Year:"")</p>
             <!--Movie genres-->
-
-            
+            @foreach (var genres in @Model.Genres)
+            {
+                <a>
+                    <span class="badge badge-success">@genres.Name</span>
+                </a>
+            }
             <span class="badge bg-success">@Model.Rating</span> <!--todo-->
             <p style="font-size: 1vw">@Model.Overview</p>
         </div>
