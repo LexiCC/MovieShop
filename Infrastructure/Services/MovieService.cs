@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ApplicationCore.Entities;
+// ReSharper disable UseConfigureAwaitFalse
 
 namespace Infrastructure.Services
 {
@@ -24,7 +26,7 @@ namespace Infrastructure.Services
         public async Task<List<MovieCard>> Get30HighestGrossingMovies()
         {
             //Get Entities' data from repository
-            var movies = await _movieRepository.Get30HighestGrossingMovies();
+            var movies = await _movieRepository.Get30HighestGrossingMovies(); //I/O bound opertion
             
             // AutoMapper - Nuget
             //Transfer Entities' data into Model's data
@@ -89,6 +91,48 @@ namespace Infrastructure.Services
             
             // todo review???
             return movieDetails;
+        }
+
+        //Get movieCards by a specific genre
+        public async Task<List<MovieCard>> GetMoviesFilterByGenre(int id)
+        {
+            var movies = await _movieRepository.GetMovieListByGenre(id);
+            var movieCards = new List<MovieCard>();
+
+            foreach (var m in movies)
+            {
+                foreach (var g in m.GenresOfMovie)
+                {
+                    //Only add when the certain genreId is selected
+                    if (g.GenreId == id)
+                    { 
+                        movieCards.Add(new MovieCard 
+                            {
+                                Id = m.Id, PosterUrl = m.PosterUrl, Title = m.Title
+                            }
+                        );
+                    }
+                }
+            }
+            return movieCards;
+        }
+
+
+        public async Task<PagedResultSet<MovieCard>> GetMoviesByGenrePagination(int genreId, int pageSize = 30, int pageNumber = 1)
+        {
+            //从repo拿到对应genre的每一页的movies
+            var pagedMovies = await _movieRepository.GetMovieByGenres(genreId, pageSize, pageNumber);
+            var movieCards = new List<MovieCard>();
+            
+            //把movies转换为movieCard for home page display purpose
+            //Data object has a list of movies, here convert list of movies to movieCards
+            movieCards.AddRange(pagedMovies.Data.Select(m => new MovieCard
+            {
+                Id = m.Id, PosterUrl = m.PosterUrl, Title = m.Title
+            }));
+
+            //return每一页的movies，以movieCard的形式
+            return new PagedResultSet<MovieCard>(movieCards, pageNumber, pageSize, pagedMovies.Count);
         }
     }
 }

@@ -28,7 +28,7 @@ namespace Infrastructure.Repositories
             return entity;
         }
 
-        public Task Delete(T entity)
+        public async Task Delete(T entity)
         {
             throw new NotImplementedException();
         }
@@ -43,7 +43,7 @@ namespace Infrastructure.Repositories
             return await _dbContext.Set<T>().FindAsync(id);
         }
 
-        public Task<T> Update(T entity)
+        public async Task<T> Update(T entity)
         {
             throw new NotImplementedException();
         }

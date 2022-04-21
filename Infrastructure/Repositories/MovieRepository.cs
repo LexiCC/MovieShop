@@ -6,7 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ApplicationCore.Models;
 using Microsoft.EntityFrameworkCore;
+// ReSharper disable UseConfigureAwaitFalse
 
 namespace Infrastructure.Repositories
 {
@@ -16,7 +18,7 @@ namespace Infrastructure.Repositories
         {
         }
 
-        public async Task< IEnumerable<Movie>> Get30HighestGrossingMovies()
+        public async Task<IEnumerable<Movie>> Get30HighestGrossingMovies()
         {
             // LINQ query 
             // SELECT top 30 * from Movie order by revenue 
@@ -30,11 +32,46 @@ namespace Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
+        //Use genre as filter, get all movies according to each genre
+        public async Task<List<Movie>> GetMovieListByGenre(int id)
+        {
+            //Join Movie table and MovieGenres table
+            var movies = await _dbContext.Movies.Include(m => m.GenresOfMovie).ToListAsync();
+            return movies;
+        }
+
+        public async Task<PagedResultSet<Movie>> GetMovieByGenres(int genreId, int pageSize = 30, int pageNumber = 1)
+        {
+            //get total movie count for a certain genre id
+            var totalMoviesCountByGenre =await _dbContext.MovieGenres.Where(m => m.GenreId == genreId).CountAsync();
+            
+            //get actual movie from MovieGenre and Movie Table
+            if (totalMoviesCountByGenre == 0)
+            {
+                throw new Exception("No movie found for this genre");
+            }
+            
+            //The method for join is Include
+            //拿到每一页对应genre的list of movies
+            var movies = await _dbContext.MovieGenres.Where(g => g.GenreId == genreId).Include(m => m.Movie)
+                .OrderBy(m => m.MovieId)
+                .Select(m => new Movie
+                {
+                    //Convert one data type to another => use 'select' convert MovieGenre to Movie
+                    Id = m.MovieId, PosterUrl = m.Movie.PosterUrl, Title = m.Movie.Title
+                })
+                .Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+
+            //把刚刚拿到的所有parameters传入所创建的Model里，return该model
+            var pageMovies = new PagedResultSet<Movie>(movies, pageNumber, pageSize, totalMoviesCountByGenre);
+            return pageMovies;
+        } 
+
         public override async Task<Movie> GetById(int id)
         {
             // Include method to include the navigation properties, join table from Genre and Trailers tables
             // Join 3 table here: Movie table, MovieGenre table, Genre table
-            var movie = _dbContext.Movies.Include(m=> m.GenresOfMovie).ThenInclude(mg=> mg.Genre)
+            var movie = await _dbContext.Movies.Include(m=> m.GenresOfMovie).ThenInclude(mg=> mg.Genre)
                 .Include(m=>m.CastOfMovie).ThenInclude(mc => mc.Cast)
                 .Include(m=> m.Trailers)
                 .Include(m => m.Reviews)
@@ -48,7 +85,7 @@ namespace Infrastructure.Repositories
             // }
             // use review dbset (table) to get average rating of the movie and assign it to movie.Rating
             
-            return await movie;
+            return movie;
         }
 
     }

@@ -22,12 +22,6 @@ public class CastService: ICastService
             Name = casts.Name,
             ProfilePath = casts.ProfilePath
         };
-        
-        // movieDetails.Casts = new List<CastModel>();
-        // foreach (var cast in movie.CastOfMovie)
-        // {
-        //     movieDetails.Casts.Add(new CastModel { Id = cast.CastId, Character = cast.Character});
-        // }
         return castDetails;
     }
 }

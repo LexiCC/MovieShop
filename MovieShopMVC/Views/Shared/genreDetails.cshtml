@@ -1,3 +1,9 @@
-@model ApplicationCore.Models.GenreModel
+@using ApplicationCore.Contracts.Services
+@inject IGenreService _genreService
 
-<!--TODO-->
+<!--First get all genres-->
+@foreach (var genre in await _genreService.GetAllGenre())
+{
+    <!--Then get all movies based on certain genreId-->
+    <a asp-controller="Movies" asp-action="MovieCardFilterByGenre" class="dropdown-item" asp-route-id="@genre.Id"> @genre.Name</a>
+}

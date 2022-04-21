@@ -1,4 +1,5 @@
-﻿@model List<ApplicationCore.Models.MovieCard>
+﻿@using ApplicationCore.Models
+@model List<ApplicationCore.Models.MovieCard>
 
 @{
     ViewData["Title"] = "Home Page";
@@ -8,12 +9,14 @@
     <div class="container-fluid">
         <div class="row">
 
-            @foreach (var movie in Model)
+            @foreach (var movieCard in Model)
             {
                 <div class="col-xl-2 col-sm-4 col-md-3 col-6">
-                    <partial name="_MovieCard" model="movie" /> <!--pass in data-->
+                    <partial name="_MovieCard" model="movieCard" /> <!--pass in data-->
                 </div>
             }
         </div>
     </div>
+    
+
 </div>

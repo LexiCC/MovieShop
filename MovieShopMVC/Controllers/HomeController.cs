@@ -11,15 +11,15 @@ namespace MovieShopMVC.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IMovieService _movieService;
-        //private readonly IGenreService _genreService;
+        
 
         public HomeController(ILogger<HomeController> logger, IMovieService movieService)
         {
             _logger = logger;
             _movieService = movieService;
-            //_genreService = genreService;
         }
 
+        [HttpGet]
         public async Task< IActionResult> Index()
         {            
             // Autofac -> DI 
@@ -42,16 +42,27 @@ namespace MovieShopMVC.Controllers
            // we need to inject the type that implements the interface
            // INjection is built in .NET Core
            // older .net framework -> rher eis no built  in DI
+           
+           // divide by zero, throw an exception manually
+           // int x = 10;
+           // int y = 0;
+           //
+           // int q = x / y;
+           
             var movies = await _movieService.Get30HighestGrossingMovies();
             return View(movies);
         }
 
+
+        [HttpGet]
         public IActionResult Privacy()
         {
             return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        
+        [HttpGet]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

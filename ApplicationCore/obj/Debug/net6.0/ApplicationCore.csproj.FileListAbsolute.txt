@@ -22,3 +22,4 @@
 /Users/xiaogengchi/RiderProjects/MovieShop/ApplicationCore/obj/Debug/net6.0/refint/ApplicationCore.dll
 /Users/xiaogengchi/RiderProjects/MovieShop/ApplicationCore/obj/Debug/net6.0/ApplicationCore.pdb
 /Users/xiaogengchi/RiderProjects/MovieShop/ApplicationCore/obj/Debug/net6.0/ref/ApplicationCore.dll
+/Users/xiaogengchi/RiderProjects/MovieShop/ApplicationCore/obj/Debug/net6.0/ApplicationCore.csproj.CopyComplete

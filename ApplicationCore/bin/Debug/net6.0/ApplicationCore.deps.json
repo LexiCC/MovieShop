@@ -5,19 +5,3 @@
   },
   "compilationOptions": {},
   "targets": {
-    ".NETCoreApp,Version=v6.0": {
-      "ApplicationCore/1.0.0": {
-        "runtime": {
-          "ApplicationCore.dll": {}
-        }
-      }
-    }
-  },
-  "libraries": {
-    "ApplicationCore/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    }
-  }
-}

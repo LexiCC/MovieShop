@@ -10,4 +10,10 @@
     <Folder Include="Exceptions\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="ApplicationCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\MovieShopApi\bin\Debug\net6.0\ApplicationCore.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
