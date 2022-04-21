@@ -79,7 +79,6 @@ namespace MovieShopAPI.Controllers
             // {"token":"fnlkdsnfkldsnfkldsnfkldsnflkjdfdfnnlsdnmflsmnflksnm"}
             // 200 OK
             // if someone needs secure information, buy movie, create review, favorite a movie
-            // send the token in the http Header Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwibGFuZ3VhZ2UiOiJlbmdsaXNoIiwiZ2l2ZW5fbmFtZSI6IkFCQyIsImZhbWlseV9uYW1lIjoiWFlaIiwiZW1haWwiOiJ1c2VyQGV4YW1wbGUuY29tIiwibmJmIjoxNjUwNDg1OTE0LCJleHAiOjE2NTA3NDUwNzgsImlhdCI6MTY1MDQ4NTkxNCwiaXNzIjoiTW92aWVTaG9wIEluYyIsImF1ZCI6Ik1vdmllU2hvcCBVc2VycyJ9.ZRPbp9PJRpbm60ZYzeHpFs0WgsF4v6wv0H23enMUgjk
             // asp.net Authorize
         }
 
